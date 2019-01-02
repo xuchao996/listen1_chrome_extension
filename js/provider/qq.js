@@ -1,10 +1,11 @@
 var qq = (function() {
     'use strict';
 
-    function htmlDecode(value){ 
-      return $('<div/>').html(value).text(); 
+    function htmlDecode(value){
+      return $('<div/>').html(value).text();
     }
 
+    // 播放列表
     var qq_show_playlist = function(url, hm) {
 
         var offset = Number(getParameterByName("offset", url)) || 0;
@@ -44,6 +45,7 @@ var qq = (function() {
         };
     }
 
+    // song img
     function qq_get_image_url(qqimgid, img_type) {
         if (qqimgid == null) {
             return '';
@@ -95,10 +97,10 @@ var qq = (function() {
 
         return {
             success: function(fn) {
-                var target_url = 'http://i.y.qq.com/qzone-music/fcg-bin/fcg_ucc_getcdinfo_' + 
-                    'byids_cp.fcg?type=1&json=1&utf8=1&onlysong=0&jsonpCallback=' + 
-                    'jsonCallback&nosign=1&disstid=' + list_id +'&g_tk=5381&loginUin=0&hostUin=0' + 
-                    '&format=jsonp&inCharset=GB2312&outCharset=utf-8&notice=0' + 
+                var target_url = 'http://i.y.qq.com/qzone-music/fcg-bin/fcg_ucc_getcdinfo_' +
+                    'byids_cp.fcg?type=1&json=1&utf8=1&onlysong=0&jsonpCallback=' +
+                    'jsonCallback&nosign=1&disstid=' + list_id +'&g_tk=5381&loginUin=0&hostUin=0' +
+                    '&format=jsonp&inCharset=GB2312&outCharset=utf-8&notice=0' +
                     '&platform=yqq&jsonpCallback=jsonCallback&needNewCode=0';
                 hm({
                     url:target_url,
@@ -133,10 +135,10 @@ var qq = (function() {
 
         return {
             success: function(fn) {
-                var target_url = 'http://i.y.qq.com/v8/fcg-bin/fcg_v8_album_info_cp.fcg' + 
-                    '?platform=h5page&albummid=' + album_id + '&g_tk=938407465' + 
-                    '&uin=0&format=jsonp&inCharset=utf-8&outCharset=utf-8' + 
-                    '&notice=0&platform=h5&needNewCode=1&_=1459961045571' + 
+                var target_url = 'http://i.y.qq.com/v8/fcg-bin/fcg_v8_album_info_cp.fcg' +
+                    '?platform=h5page&albummid=' + album_id + '&g_tk=938407465' +
+                    '&uin=0&format=jsonp&inCharset=utf-8&outCharset=utf-8' +
+                    '&notice=0&platform=h5&needNewCode=1&_=1459961045571' +
                     '&jsonpCallback=asonglist1459961045566';
                 hm({
                     url: target_url,
@@ -171,11 +173,11 @@ var qq = (function() {
 
         return {
             success: function(fn) {
-                var target_url = 'http://i.y.qq.com/v8/fcg-bin/fcg_v8_singer_track_cp.fcg' + 
+                var target_url = 'http://i.y.qq.com/v8/fcg-bin/fcg_v8_singer_track_cp.fcg' +
                     '?platform=h5page&order=listen&begin=0&num=50&singermid=' + artist_id +
-                    '&g_tk=938407465&uin=0&format=jsonp&' + 
-                    'inCharset=utf-8&outCharset=utf-8&notice=0&platform=' + 
-                    'h5&needNewCode=1&from=h5&_=1459960621777&' + 
+                    '&g_tk=938407465&uin=0&format=jsonp&' +
+                    'inCharset=utf-8&outCharset=utf-8&notice=0&platform=' +
+                    'h5&needNewCode=1&from=h5&_=1459960621777&' +
                     'jsonpCallback=ssonglist1459960621772';
                 hm({
                     url: target_url,
@@ -205,16 +207,17 @@ var qq = (function() {
         };
     }
 
+    // search
     var qq_search = function(url, hm, se) {
         return {
             success: function(fn) {
                 var keyword = getParameterByName('keywords', url);
                 var curpage = getParameterByName('curpage', url);
-                var target_url = 'http://i.y.qq.com/s.music/fcgi-bin/search_for_qq_cp?' + 
-                'g_tk=938407465&uin=0&format=jsonp&inCharset=utf-8' + 
-                '&outCharset=utf-8&notice=0&platform=h5&needNewCode=1' + 
-                '&w=' + keyword + '&zhidaqu=1&catZhida=1' + 
-                '&t=0&flag=1&ie=utf-8&sem=1&aggr=0&perpage=20&n=20&p=' + curpage + 
+                var target_url = 'http://i.y.qq.com/s.music/fcgi-bin/search_for_qq_cp?' +
+                'g_tk=938407465&uin=0&format=jsonp&inCharset=utf-8' +
+                '&outCharset=utf-8&notice=0&platform=h5&needNewCode=1' +
+                '&w=' + keyword + '&zhidaqu=1&catZhida=1' +
+                '&t=0&flag=1&ie=utf-8&sem=1&aggr=0&perpage=20&n=20&p=' + curpage +
                 '&remoteplace=txt.mqq.all&_=1459991037831&jsonpCallback=jsonp4';
                 hm({
                     url:target_url,
@@ -236,12 +239,13 @@ var qq = (function() {
         };
     }
 
+    // music data token and to get data
     var qq_bootstrap_track = function(sound, track, success, failure, hm, se) {
         var target_url ='https://c.y.qq.com/base/fcgi-bin/fcg_music_express_mobile3.fcg' +
-            '?g_tk=195219765&jsonpCallback=MusicJsonCallback004680169373158849' + 
-            '&loginUin=1297716249&hostUin=0&format=json&inCharset=utf8' + 
-            '&outCharset=utf-8&notice=0&platform=yqq&needNewCode=0' + 
-            '&cid=205361747&callback=MusicJsonCallback004680169373158849' + 
+            '?g_tk=195219765&jsonpCallback=MusicJsonCallback004680169373158849' +
+            '&loginUin=1297716249&hostUin=0&format=json&inCharset=utf8' +
+            '&outCharset=utf-8&notice=0&platform=yqq&needNewCode=0' +
+            '&cid=205361747&callback=MusicJsonCallback004680169373158849' +
             '&uin=1297716249&songmid='+ track.id.slice('qqtrack_'.length) +
             '&filename=C400'+ track.id.slice('qqtrack_'.length) + '.m4a&guid=7332953645';
 
@@ -274,6 +278,7 @@ var qq = (function() {
       return buf;
     }
 
+    // qq_lyric
     var qq_lyric = function(url, hm, se) {
         var track_id = getParameterByName('track_id', url).split('_').pop();
         // use chrome extension to modify referer.
@@ -346,4 +351,3 @@ return {
 };
 
 })();
-
